@@ -9,9 +9,14 @@ process.on('uncaughtException', (err) => {
 require('dotenv').config();
 
 const express = require('express');
+const morgan = require('morgan');
 const Server = require('../server');
 
 const { server } = Server.new(express());
+
+server.globalMiddlewares([express.json(), morgan('dev')]);
+
+server.init();
 
 server.boot();
 

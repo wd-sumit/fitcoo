@@ -9,7 +9,23 @@ class AuthController extends BaseController {
   }
 
   login() {
-    return this.asyncWrapper(async (req, res, next) => {});
+    return this.asyncWrapper(async (req, res, next) => {
+      const { email, password } = req.body;
+
+      const data = await this.service.login(email, password);
+
+      this.send(res, data, 200);
+    });
+  }
+
+  create() {
+    return this.asyncWrapper(async (req, res, next) => {
+      const { email, password } = req.body;
+
+      const data = await this.service.create(email, password);
+
+      this.send(res, data, 200);
+    });
   }
 }
 

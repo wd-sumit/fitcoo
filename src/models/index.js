@@ -9,8 +9,9 @@ const models = {
   conn,
   User: UserModel.modelClass.init(UserModel.modelFields, {
     ...UserModel.options,
-    sequelize: conn
-  })
+    sequelize: conn,
+    hooks: UserModel.hooks
+  }),
 };
 
 // Object.keys(modelList).forEach((model) => {
@@ -28,13 +29,13 @@ const models = {
 
 // Support Migrations
 if (process.env.NODE_ENV !== 'production') {
-  // conn.sync().then(() => {
-  //   // models.Language.bulkCreate([
-  //   //   { id: 'hi', displayName: 'हिंदी' },
-  //   //   { id: 'en', displayName: 'English' },
-  //   //   { id: 'mr', displayName: 'मराठी' },
-  //   // ]);
-  // });
+  conn.sync({ alter: true }).then(() => {
+    // models.Language.bulkCreate([
+    //   { id: 'hi', displayName: 'हिंदी' },
+    //   { id: 'en', displayName: 'English' },
+    //   { id: 'mr', displayName: 'मराठी' },
+    // ]);
+  });
 }
 
 module.exports = models;

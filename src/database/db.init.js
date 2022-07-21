@@ -7,10 +7,11 @@ const init = (config) => {
     host: config.HOST,
     dialect: config.DIALECT,
     pool: config.POOL,
-    logging: console.log,
+    logging: false,
   });
   try {
     dbConnection.authenticate();
+    console.log('Connected to datababse:', config.DATABASE_NAME);
 
     process.on('SIGINT', () => {
       dbConnection.close().then(() => {
